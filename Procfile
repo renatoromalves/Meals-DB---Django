@@ -1,1 +1,1 @@
-web: guiunicorn TopiProject --log-file -
+web: guiunicorn TopiProject.wsgi --log-file -
