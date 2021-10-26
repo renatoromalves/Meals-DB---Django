@@ -24,8 +24,9 @@ def index(request):
 
 
 def search(request):
-    search_key = request.GET.get('newsearch',request.GET.get('searchfield'))
-    page_number = request.GET.get('page', 1)
+    search_key = request.GET.get('newsearch')
+    search_key2 = request.GET.get('searchfield')
+    page_number = request.GET.get('page')
     if search_key:
         meals.search(search_key)
         base_url = reverse('search_view')
@@ -37,7 +38,7 @@ def search(request):
             return redirect(url)
         except TypeError:
             return render(request, 'error.html', {'mealsearch': search_key})
-    elif page_number != 1:
+    elif page_number != None:
         paginator = Paginator(meals.search_list, qtde_pag)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
