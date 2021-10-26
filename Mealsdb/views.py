@@ -51,4 +51,22 @@ def search(request):
             page_number = request.GET.get('page', 1)
             page_obj = paginator.get_page(page_number)
             return render(request, 'list.html', {'page_obj': page_obj,'mealsearch': request.GET.get('searchfield')})
+    except TypeError:
+        if search_key:
+            meals.search(search_key)
+            base_url = reverse('search_view')
+            paginator = Paginator(meals.search_list, qtde_pag)
+            page_number = request.GET.get('page', 1)
+            try:
+                page_obj = paginator.get_page(page_number)
+                url = '{}?{}'.format(base_url, 'searchfield={}'.format(search_key))
+                return redirect(url)
+            except TypeError:
+                return render(request, 'error.html', {'mealsearch': search_key})
+        else:
+            meals.search(search_key2)
+            paginator = Paginator(meals.search_list, qtde_pag)
+            page_number = request.GET.get('page', 1)
+            page_obj = paginator.get_page(page_number)
+            return render(request, 'list.html', {'page_obj': page_obj,'mealsearch': request.GET.get('searchfield')})
 
