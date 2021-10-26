@@ -24,8 +24,7 @@ def index(request):
 
 
 def search(request):
-    search_key = request.GET.get('newsearch')
-    search_key2 = request.GET.get('searchfield')
+    search_key = request.GET.get('newsearch',request.GET.get('searchfield'))
     page_number = request.GET.get('page', 1)
     if search_key:
         meals.search(search_key)
