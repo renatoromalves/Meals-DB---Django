@@ -39,7 +39,7 @@ def search(request):
         except TypeError:
             return render(request, 'error.html', {'mealsearch': search_key})
     else:
-        if request.GET.get('page'):
+        if request.GET.get('page') != 1:
             paginator = Paginator(meals.search_list, qtde_pag)
             page_number = request.GET.get('page', 1)
             page_obj = paginator.get_page(page_number)
