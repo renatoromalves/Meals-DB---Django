@@ -26,11 +26,11 @@ def index(request):
 def search(request):
     search_key = request.GET.get('newsearch')
     search_key2 = request.GET.get('searchfield')
-    page_number = request.GET.get('page', 1)
+    page_number = request.GET.get('page')
     try:
         int(page_number)
         paginator = Paginator(meals.search_list, qtde_pag)
-        page_number = request.GET.get('page')
+        page_number = request.GET.get('page',1)
         page_obj = paginator.get_page(page_number)
         return render(request, 'list.html', {'page_obj': page_obj, 'mealsearch': request.GET.get('searchfield')})
     except ValueError:

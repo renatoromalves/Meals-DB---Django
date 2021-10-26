@@ -68,3 +68,4 @@ def do_all_tests():
     else:
         print('All tests passed')
     
+do_all_tests()
